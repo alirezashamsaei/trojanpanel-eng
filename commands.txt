@@ -1,0 +1,26 @@
+-- Run Install/Management Script (English)
+
+source <(curl -L https://raw.githubusercontent.com/alirezashamsaei/trojanpanel-eng/main/install_script.sh)
+
+-- Configure system timezone
+sudo timedatectl set-timezone "Asia/Tehran"
+timedatectl
+
+-- Configure BBR For Optimization
+source <(curl -L https://github.com/teddysun/across/raw/master/bbr.sh)
+
+
+-- Create CronJob to reboot server everyday
+crontab -e
+0 4 * * * /sbin/reboot
+
+
+-- Change Cockpit listening port
+
+nano /etc/systemd/system/cockpit.socket.d/listen.conf
+
+>>
+[Socket]
+ListenStream=
+ListenStream=443
+<<
